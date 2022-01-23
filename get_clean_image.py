@@ -164,7 +164,7 @@ if __name__ == '__main__':
 
     for sub_dir in sub_dir_list:
         current_vid_dir = os.path.join(input_dir, sub_dir)
-        file_list = os.listdir(current_vid_dir)
+        file_list = sorted(os.listdir(current_vid_dir))
 
         current_output_dir = os.path.join(output_dir, sub_dir)
         if not os.path.exists(current_output_dir):
