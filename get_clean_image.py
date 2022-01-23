@@ -70,7 +70,7 @@ def job(q, y, Range):
         w1=w1, w2=w2, h1=h1, h2=h2))
 
 
-def computer_percentile(y):
+def computer_percentile(y, frame_num):
     _, H, W = y.shape
 
     q1 = mp.SimpleQueue()
@@ -128,7 +128,9 @@ def computer_percentile(y):
     map8 = q8.get()
     maps = np.concatenate(
         (map1, map2, map3, map4, map5, map6, map7, map8), axis=0)
+    print(np.shape(maps))
     percentile = np.argmax([np.sum(maps[:, i]) for i in range(0, 101)])
+    print('pen')
     return percentile
 
 
@@ -145,6 +147,7 @@ def get_frame_num(path: str) -> int:
     cap = cv2.VideoCapture(path)
     length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     return length
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input_dir', type=str, required=True)
