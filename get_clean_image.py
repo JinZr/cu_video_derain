@@ -146,9 +146,9 @@ def get_frame_num(path: str) -> int:
     length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     return length
 
-
-parser = argparse.ArgumentParser('--input_dir', type=str, required=True)
-parser = argparse.ArgumentParser('--output_dir', type=str, required=True)
+parser = argparse.ArgumentParser()
+parser.add_argument('--input_dir', type=str, required=True)
+parser.add_argument('--output_dir', type=str, required=True)
 
 args = parser.parse_args()
 
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    sub_dir_list = os.walk(input_dir)[0][1]
+    sub_dir_list = list(os.walk(input_dir))[0][1]
 
     for sub_dir in sub_dir_list:
         current_vid_dir = os.path.join(input_dir, sub_dir)
@@ -181,10 +181,8 @@ if __name__ == '__main__':
             ycbcr = RGB2YCbCr(rgb)
             y = ycbcr[:, :, :, 0]
 
-            end = time.time()
             percentile = computer_percentile(y)
             final = np.percentile(rgb, percentile, axis=0).astype('uint8')
             Image.fromarray(final).save(
-                os.path.join(current_output_dir, video_name[:-4] + '_p.png')
+                os.path.join(current_output_dir, fname[:-4] + '_p.png')
             )
-            print(time.time()-end)
