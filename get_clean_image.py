@@ -70,8 +70,9 @@ def job(q, y, Range):
         w1=w1, w2=w2, h1=h1, h2=h2))
 
 
-def computer_percentile(y, frame_num):
+def computer_percentile(y):
     _, H, W = y.shape
+    # print(f'y.shape {y.shape}')
 
     q1 = mp.SimpleQueue()
     q2 = mp.SimpleQueue()
@@ -128,9 +129,9 @@ def computer_percentile(y, frame_num):
     map8 = q8.get()
     maps = np.concatenate(
         (map1, map2, map3, map4, map5, map6, map7, map8), axis=0)
-    print(np.shape(maps))
+    # print(np.shape(maps))
     percentile = np.argmax([np.sum(maps[:, i]) for i in range(0, 101)])
-    print('pen')
+    # print('pen')
     return percentile
 
 
@@ -139,7 +140,9 @@ def RGB2YCbCr(rgb):
                   [0.58700, -0.33126, -0.41869],
                   [0.11400, 0.50000, -0.08131]])
     ycbcr = np.dot(rgb, m)
+    # print(ycbcr)
     ycbcr[:, :, 1:] += 128.0
+    # print('frgb')
     return ycbcr.astype('uint8')
 
 
@@ -178,13 +181,16 @@ if __name__ == '__main__':
 
             # adapt this to get better result
             frame_number = get_frame_num(video_name)
+            # print(frame_number)
             rgb = read_video(video_name)  # Change to your video path
             rgb = rgb[:frame_number]
-
+            # print('rgb')
             ycbcr = RGB2YCbCr(rgb)
             y = ycbcr[:, :, :, 0]
+            # print(np.shape(y))
 
             percentile = computer_percentile(y)
+            # print('final')
             final = np.percentile(rgb, percentile, axis=0).astype('uint8')
             Image.fromarray(final).save(
                 os.path.join(current_output_dir, fname[:-4] + '_p.png')
