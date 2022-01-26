@@ -1,7 +1,5 @@
-# %% [markdown]
-# # Clean Image Generation
+# Clean Image Generation
 
-# %%
 import argparse
 import os
 import time
@@ -11,7 +9,6 @@ import ffmpeg
 import numpy as np
 from PIL import Image
 from tqdm import tqdm
-import skimage.io as sio
 import torch.multiprocessing as mp
 
 
@@ -36,8 +33,6 @@ def read_video(videoPath):
         .reshape([-1, height, width, 3])
     )
     return video
-
-# %%
 
 
 def get_max_occur_number(arr):
