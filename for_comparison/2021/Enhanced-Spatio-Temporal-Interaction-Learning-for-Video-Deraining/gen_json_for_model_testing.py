@@ -42,7 +42,10 @@ if __name__ == '__main__':
         fm_list = []
         for fm_filename in tqdm(fm_file_list):
             fm_filepath = os.path.join(fm_dir, fm_filename)
-            fm_list.append(fm_filepath)
+            fm_list.append({
+                'rain': fm_filepath,
+                'gt': gt_filepath
+            })
         res.append(fm_list)
     json_str = json.dumps([res], indent=4)
     with open(output_json, 'w+') as fout:
