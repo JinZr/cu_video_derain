@@ -35,11 +35,11 @@ if __name__ == '__main__':
         gt_pure_filename = gt_filename.split('_')[0]
 
         fm_dir = os.path.join(frame_dir, gt_pure_filename)
-        fm_file_list = os.listdir(fm_dir)
+        fm_file_list = sorted(os.listdir(fm_dir))
         for fm_filename in tqdm(fm_file_list):
             fm_filepath = os.path.join(fm_dir, fm_filename)
             res.append({
-                'rf': fm_filepath,
+                'rain': fm_filepath,
                 'gt': gt_filepath
             })
     json_str = json.dumps([res], indent=4)
