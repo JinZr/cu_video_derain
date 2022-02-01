@@ -47,6 +47,6 @@ if __name__ == '__main__':
                 'gt': gt_filepath
             })
         res.append(fm_list)
-    json_str = json.dumps([res], indent=4)
+    json_str = json.dumps(res, indent=4)
     with open(output_json, 'w+') as fout:
         fout.write(json_str)
