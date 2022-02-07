@@ -39,7 +39,7 @@ if __name__ == '__main__':
                 current_output_file_path = os.path.join(
                     current_output_dir, file)
                 input_img = cv2.imread(current_input_file_path)
-                R, G, B = cv2.split(input_img)
+                B, G, R = cv2.split(input_img)
                 output_img = cv2.merge([R, G, B])
                 cv2.imwrite(
                     current_output_file_path,
