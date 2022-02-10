@@ -31,13 +31,17 @@ class ExEncoder(nn.Module):
             stride=2
         )
 
-        self.block = nn.ModuleList([
+        self.block1 = nn.ModuleList([
             self.conv1_1,
             self.conv1_2,
             self.max_pool_1,
+        ])
+        self.block2 = nn.ModuleList([
             self.conv2_1,
             self.conv2_2,
             self.max_pool_2,
+        ])
+        self.block3 = nn.ModuleList([
             self.conv3_1,
             self.conv3_2,
             self.conv3_3,
@@ -45,7 +49,10 @@ class ExEncoder(nn.Module):
         ])
 
     def forward(self, x):
-        return self.block(x)
+        b1 = self.block1(x)
+        b2 = self.block2(b1)
+        b3 = self.block2(b2)
+        return b1, b2, b3
 
 
 if __name__ == '__main__':
