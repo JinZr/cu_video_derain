@@ -4,12 +4,10 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 
-
 class DirectionalGradientNet(nn.Module):
 
     def __init__(self) -> None:
-        super().__init__()
-        pass
+        super(DirectionalGradientNet, self).__init__()
 
-    def forward(self, x):
-        pass
+    def forward(self, s):
+        tan_s = None

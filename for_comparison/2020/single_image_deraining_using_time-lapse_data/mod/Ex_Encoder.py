@@ -50,11 +50,8 @@ class ExEncoder(nn.Module):
 
     def forward(self, x):
         b1 = self.block1(x)
-        print(b1.shape)
         b2 = self.block2(b1)
-        print(b2.shape)
         b3 = self.block3(b2)
-        print(b3.shape)
         return b1, b2, b3
 
 

@@ -21,25 +21,15 @@ def conv_block(kernel_size: int, in_channels: int, out_channels: int, padding: i
     )
 
 
-def deconv_block(kernel_size: int, in_channels: int, out_channels: int) -> nn.ConvTranspose2d:
-    return nn.ConvTranspose2d(
-        in_channels=in_channels,
-        out_channels=out_channels,
-        kernel_size=(kernel_size, kernel_size)
+def deconv_block() -> nn.UpsamplingBilinear2d:
+    # return nn.ConvTranspose2d(
+    #     in_channels=in_channels,
+    #     out_channels=out_channels,
+    #     kernel_size=(kernel_size, kernel_size),
+    #     stride=stride,
+    #     padding=1,
+    #     output_padding=1
+    # )
+    return nn.UpsamplingBilinear2d(
+        scale_factor=2
     )
-
-
-def init_conv(
-    in_channels: int,
-    out_channels: int,
-    kernel_size: int,
-    kernel_value: List[int]
-) -> nn.Conv2d:
-    with torch.no_grad():
-        conv = nn.Conv2d(
-            in_channels=in_channels,
-            out_channels=out_channels,
-            kernel_size=(kernel_size, kernel_size)
-        )
-        conv.weight.data = kernel_value
-    return conv
