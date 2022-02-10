@@ -7,14 +7,14 @@ import Ex_Encoder
 import FilterGeneratingNetwork
 
 
-class DerainingNetwork(nn.Module):
+class DerainModule(nn.Module):
 
     def __init__(self) -> None:
-        super().__init__()
+        super(DerainModule, self).__init__()
 
-        self.e3 = Ex_Encoder.ExEncoder(kernel_size=3)
-        self.e5 = Ex_Encoder.ExEncoder(kernel_size=5)
-        self.e7 = Ex_Encoder.ExEncoder(kernel_size=7)
+        self.e3 = Ex_Encoder.ExEncoder(kernel_size=3, padding=1)
+        self.e5 = Ex_Encoder.ExEncoder(kernel_size=5, padding=2)
+        self.e7 = Ex_Encoder.ExEncoder(kernel_size=7, padding=3)
 
         self.filter_generating_network = FilterGeneratingNetwork.FilterGeneratingNetwork(
             in_channels=768,
@@ -40,5 +40,7 @@ class DerainingNetwork(nn.Module):
 
 if __name__ == '__main__':
     import numpy as np
-    module = DerainingNetwork()
-    module(torch.from_numpy(np.random.rand(1, 64, 64, 3)))
+    module = DerainModule().float()
+    module(
+        torch.from_numpy(np.random.rand(32, 3, 128, 128)).float()
+    )
