@@ -1,8 +1,4 @@
-from typing import List
-import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
 
 
 def conv_block(kernel_size: int, in_channels: int, out_channels: int, padding: int) -> nn.Sequential:

@@ -1,8 +1,5 @@
-from this import d
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
 
 import Ex_Encoder
 import FilterGeneratingNetwork
@@ -44,6 +41,7 @@ class DerainModule(nn.Module):
             e3_feat_b2,
             e3_feat_b1
         )
+        return torch.clamp_min(input=x - decoded_feature_map, min=0)
 
 
 if __name__ == '__main__':
