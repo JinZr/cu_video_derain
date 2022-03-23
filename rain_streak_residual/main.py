@@ -18,6 +18,7 @@ overlay_pth = args.overlay_pth
 if __name__ == '__main__':
     frame_dir_list = os.listdir(frames_pth)
     for frame_dir in frame_dir_list:
+        print(f"==== {frame_dir} ====")
         static_image_path = os.path.join(static_pth, f"{frame_dir}.png")
         static_image = cv2.imread(static_image_path)
 
@@ -37,9 +38,8 @@ if __name__ == '__main__':
             frame_path = os.path.join(video_frames_path, frame)
             current_frame = cv2.imread(frame_path)
 
-            rain_streak = - \
-                current_frame.astype(np.float32) + \
-                static_image.astype(np.float32)
+            rain_streak = current_frame.astype(
+                np.float32) - static_image.astype(np.float32)
             # rain_streak = cv2.threshold(rain_streak, thresh=200, maxval=254, type=3)[1]
             # rain_streak = cv2.inRange(
             #     src=rain_streak,
