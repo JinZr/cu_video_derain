@@ -32,7 +32,7 @@ if __name__ == '__main__':
     res = []
     for gt_filename in tqdm(gt_file_list):
         gt_filepath = os.path.join(gt_dir, gt_filename)
-        gt_pure_filename = gt_filename.split('_')[0]
+        gt_pure_filename = gt_filename.split('.')[0]
 
         fm_dir = os.path.join(frame_dir, gt_pure_filename)
         fm_file_list = sorted(

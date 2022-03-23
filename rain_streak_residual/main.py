@@ -2,6 +2,7 @@ import os
 import argparse
 
 import cv2
+import numpy as np
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
@@ -28,7 +29,7 @@ if __name__ == '__main__':
         )
 
         frame_overlay_pth = os.path.join(overlay_pth, frame_dir)
-        if not os.path.exists(frame_overlay_pth): 
+        if not os.path.exists(frame_overlay_pth):
             os.makedirs(frame_overlay_pth)
 
         for frame in tqdm(video_frame_list):
@@ -36,7 +37,15 @@ if __name__ == '__main__':
             frame_path = os.path.join(video_frames_path, frame)
             current_frame = cv2.imread(frame_path)
 
-            rain_streak = current_frame - static_image
+            rain_streak = - \
+                current_frame.astype(np.float32) + \
+                static_image.astype(np.float32)
+            # rain_streak = cv2.threshold(rain_streak, thresh=200, maxval=254, type=3)[1]
+            # rain_streak = cv2.inRange(
+            #     src=rain_streak,
+            #     lowerb=(200, 200, 200),
+            #     upperb=(255, 255, 255)
+            # )
+
+            # print(rain_streak)
             cv2.imwrite(output_streak_path, rain_streak)
-        exit(0)
-            
