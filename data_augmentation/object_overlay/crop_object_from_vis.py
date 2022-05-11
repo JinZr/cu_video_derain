@@ -10,11 +10,11 @@ import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--in_path', type=str, required=True)
-parser.add_argument('--out_path', type=str, required=True)
+# parser.add_argument('--out_path', type=str, required=True)
 args = parser.parse_args()
 
 in_path = args.in_path
-out_path = args.out_path
+# out_path = args.out_path
 
 annotation_path = os.path.join(in_path, 'Annotations/{}/{}.png')
 pic_path = os.path.join(in_path, 'JPEGImages/{}/{}.jpg')
@@ -26,10 +26,7 @@ if __name__ == '__main__':
     js_file = os.path.join(in_path, 'meta.json')
     metadata_js = json.load(open(js_file))
     metadata = metadata_js['videos']
-    # pprint(metadata)
-    # exit(0)
-    # for key in tqdm(metadata.keys()):
-    for key in ['003234408d']:
+    for key in tqdm(metadata.keys()):
         vid_dict = metadata[key]
         obj_dict = vid_dict['objects']
         for obj_key in obj_dict.keys():
