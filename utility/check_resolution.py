@@ -23,7 +23,7 @@ def check_resolution(path: str):
             check_resolution(l_path)
         elif '.png' in l_path:
             img = Image.open(l_path)
-            if img.width == W and img.height == H:
+            if img.width == W and img.height == H and '(1)' not in l_path:
                 pass
             else:
                 ERROR_LIST.append(l_path + '\n')

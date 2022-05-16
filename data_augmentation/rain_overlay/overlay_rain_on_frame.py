@@ -30,14 +30,11 @@ def green_blue_swap(image):
     return image
 
 
-K = 4
-alpha = .75
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--frame_dir', type=str,
                     default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_regular_clip_frame')
 parser.add_argument('--streak_dir', type=str,
-                    default='/home/desc/projects/derain/cu_rain_video_dataset/train/rain_streak')
+                    default='/home/desc/projects/derain/cu_rain_video_dataset/train/rain_streak_filtered')
 parser.add_argument('--output_dir', type=str,
                     default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_regular_augmented')
 args = parser.parse_args()
@@ -59,6 +56,10 @@ if __name__ == '__main__':
         os.makedirs(output_dir)
 
     for vid_dir in tqdm(frame_dir_list):
+
+        K = random.randint(a=3, b=5)
+        alphas = [random.uniform(a=0.6, b=0.9) for _ in range(K)]
+
         vid_path = os.path.join(frame_dir, vid_dir)
         output_path = os.path.join(output_dir, vid_dir)
 
@@ -98,11 +99,11 @@ if __name__ == '__main__':
         for frame_index in range(frame_count):
             frame = np.array(Image.open(frame_paths[frame_index]))
             streak_frames = []
-            for streak_frame in selected_streak_frame_paths:
+            for rain_streak_arr_index, streak_frame in enumerate(selected_streak_frame_paths):
                 try:
                     streak_frames.append(
                         np.array(Image.open(
-                            streak_frame[rain_streak_index])) * alpha
+                            streak_frame[rain_streak_index])) * alphas[rain_streak_arr_index]
                     )
                 except:
                     ended_rain_streak += 1
@@ -124,4 +125,4 @@ if __name__ == '__main__':
                 output_path, frame_list[frame_index]))
             # plt.imshow(compressed_frame)
             # plt.show()
-        exit(0)
+        # exit(0)
