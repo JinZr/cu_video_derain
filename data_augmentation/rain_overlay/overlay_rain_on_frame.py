@@ -58,7 +58,7 @@ if __name__ == '__main__':
     for vid_dir in tqdm(frame_dir_list):
 
         K = random.randint(a=3, b=5)
-        alphas = [random.uniform(a=0.6, b=0.9) for _ in range(K)]
+        alphas = [random.uniform(a=0.8, b=1.2) for _ in range(K)]
 
         vid_path = os.path.join(frame_dir, vid_dir)
         output_path = os.path.join(output_dir, vid_dir)
@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
         rain_streak_index = 0
         ended_rain_streak = 0
-        for frame_index in range(frame_count):
+        for frame_index in tqdm(range(frame_count)):
             frame = np.array(Image.open(frame_paths[frame_index]))
             streak_frames = []
             for rain_streak_arr_index, streak_frame in enumerate(selected_streak_frame_paths):

@@ -19,31 +19,32 @@ from tqdm import tqdm
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--frame_dir', type=str, required=True)
+parser.add_argument('--gt_dir', type=str, required=True)
 parser.add_argument('--output_json', type=str, required=True)
 
 args = parser.parse_args()
 frame_dir = args.frame_dir
+gt_dir = args.gt_dir
 output_json = args.output_json
 
 if __name__ == '__main__':
-    video_dir_list = os.listdir(frame_dir)
+    frame_dir_list = os.listdir(frame_dir)
     res = []
-    for video_dir in video_dir_list:
-        print(f"{video_dir}")
-        video_path = os.path.join(frame_dir, video_dir)
-        frame_list = os.listdir(video_path)
+    for fdir in tqdm(frame_dir_list):
+        frame_dir_path = os.path.join(frame_dir, fdir)
         frame_list = sorted(
-            frame_list,
-            key=lambda x: int(x.split('.')[0].split('_')[-1]))
-        frame_list = list(
-            map(lambda x: os.path.join(video_path, x), frame_list))
-        tmp = []
-        for frame in tqdm(frame_list):
-            tmp.append({
-                'gt': frame,
-                'rain': frame
+            os.listdir(frame_dir_path),
+            key=lambda x: int(x.split('.')[0].split('_')[-1])
+        )
+        fm_list = []
+        for frame in frame_list:
+            frame_path = os.path.join(frame_dir_path, frame)
+            gt_frame_path = os.path.join(gt_dir, fdir, frame)
+            fm_list.append({
+                'rain': frame_path,
+                'gt': gt_frame_path
             })
-        res.append(tmp)
+        res.append(fm_list)
     json_str = json.dumps(res, indent=4)
     with open(output_json, 'w+') as fout:
         fout.write(json_str)
