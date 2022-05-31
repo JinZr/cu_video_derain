@@ -31,12 +31,12 @@ def green_blue_swap(image):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--frame_dir', type=str,
-                    default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_regular_clip_frame')
-parser.add_argument('--streak_dir', type=str,
-                    default='/home/desc/projects/derain/cu_rain_video_dataset/train/rain_streak_filtered')
-parser.add_argument('--output_dir', type=str,
-                    default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_regular_augmented')
+parser.add_argument('--frame_dir', type=str, required=True)
+# default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_regular_clip_frame')
+parser.add_argument('--streak_dir', type=str, required=True)
+# default='/home/desc/projects/derain/cu_rain_video_dataset/train/rain_streak_filtered')
+parser.add_argument('--output_dir', type=str, required=True)
+# default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_regular_augmented')
 args = parser.parse_args()
 
 frame_dir = args.frame_dir
@@ -108,7 +108,7 @@ if __name__ == '__main__':
                 except:
                     ended_rain_streak += 1
                     pass
-            if K - ended_rain_streak == 1:
+            if K - ended_rain_streak <= 1:
                 break
             rain_streak_index += 1
             compressed_frame = np.sum(
