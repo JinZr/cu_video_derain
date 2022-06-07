@@ -17,6 +17,6 @@ if __name__ == '__main__':
     dirlist = os.listdir(frame_dir)
     with open(output_list, 'w+') as fout:
         fout.writelines(list(map(
-            lambda x: x + '\n',
+            lambda x: os.path.join(frame_dir, x) + '\n',
             dirlist
         )))
