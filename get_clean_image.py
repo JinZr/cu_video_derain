@@ -160,6 +160,7 @@ output_dir = args.output_dir
 if __name__ == '__main__':
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
+    print(os.walk(input_dir))
 
     sub_dir_list = list(os.walk(input_dir))[0][1]
 
