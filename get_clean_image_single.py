@@ -148,46 +148,34 @@ def get_frame_num(path: str) -> int:
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--input_dir', type=str, required=True)
-parser.add_argument('--output_dir', type=str, required=True)
+parser.add_argument('--video_pth', type=str, required=True)
+parser.add_argument('--output_pth', type=str, required=True)
 
 args = parser.parse_args()
 
-input_dir = args.input_dir
-output_dir = args.output_dir
+video_pth = args.video_pth
+output_pth = args.output_pth
 
 
 if __name__ == '__main__':
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    print(os.walk(input_dir))
 
-    sub_dir_list = list(os.walk(input_dir))[0][1]
+    video_name = video_pth
 
-    for sub_dir in sub_dir_list:
-        current_vid_dir = os.path.join(input_dir, sub_dir)
-        file_list = sorted(os.listdir(current_vid_dir))
+    # adapt this to get better result
+    frame_number = get_frame_num(video_name)
+    # print(frame_number)
+    rgb = read_video(video_name)  # Change to your video path
+    rgb = rgb[:frame_number]
+    # print('rgb')
+    ycbcr = RGB2YCbCr(rgb)
+    y = ycbcr[:, :, :, 0]
+    # print(np.shape(y))
 
-        current_output_dir = os.path.join(output_dir, sub_dir)
-        if not os.path.exists(current_output_dir):
-            os.makedirs(current_output_dir)
-
-        for fname in tqdm(file_list):
-            video_name = os.path.join(current_vid_dir, fname)
-
-            # adapt this to get better result
-            frame_number = get_frame_num(video_name)
-            # print(frame_number)
-            rgb = read_video(video_name)  # Change to your video path
-            rgb = rgb[:frame_number]
-            # print('rgb')
-            ycbcr = RGB2YCbCr(rgb)
-            y = ycbcr[:, :, :, 0]
-            # print(np.shape(y))
-
-            percentile = computer_percentile(y)
-            # print('final')
-            final = np.percentile(rgb, percentile, axis=0).astype('uint8')
-            Image.fromarray(final).save(
-                os.path.join(current_output_dir, fname[:-4] + '.png')
-            )
+    percentile = computer_percentile(y)
+    # print('final')
+    final = np.percentile(rgb, percentile, axis=0).astype('uint8')
+    Image.fromarray(final).save(
+        output_pth
+    )
+    print(output_pth
+          )

@@ -3,6 +3,7 @@ import argparse
 
 import cv2
 from tqdm import tqdm
+import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--video_dir', type=str, required=True)
@@ -24,6 +25,7 @@ def vid_to_img(vid_path: str, img_seq_path: str):
         success, image = vidcap.read()
         if not success:
             break
+        assert np.shape(image) == (1080, 1920, 3)
         cv2.imwrite(
             os.path.join(img_seq_path, filename,
                          "frame_{}.png".format(count)), image
