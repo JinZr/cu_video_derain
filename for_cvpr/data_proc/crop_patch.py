@@ -38,9 +38,12 @@ def traverse_input_dir(root_dir: str, save_path: str):
             img_name = img.split('.')[0]
             img_path = os.path.join(subdir_path, img)
             img_file = Image.open(img_path)
+            img_save_path = os.path.join(save_path, subdir)
+            if not os.path.exists(img_save_path):
+                os.makedirs(img_save_path)
             crop_image(
                 img=img_file,
-                save_path=save_path,
+                save_path=img_save_path,
                 img_name=img_name,
             )
 
@@ -51,9 +54,12 @@ def traverse_label_dir(root_dir: str, save_path: str):
         img_name = img.split('.')[0]
         img_path = os.path.join(root_dir, img)
         img_file = Image.open(img_path)
+        img_save_path = os.path.join(save_path, img_name)
+        if not os.path.exists(img_save_path):
+            os.makedirs(img_save_path)
         crop_image(
             img=img_file,
-            save_path=save_path,
+            save_path=img_save_path,
             img_name=img_name,
         )
 
