@@ -27,6 +27,11 @@ frame_dir = args.frame_dir
 gt_dir = args.gt_dir
 output_json = args.output_json
 
+
+def filter_out_garbage(in_list):
+    return list(filter(lambda x: '._' not in x and '.DS_' not in x, in_list))
+
+
 if __name__ == '__main__':
     gt_file_list = os.listdir(gt_dir)
     res = []
@@ -35,10 +40,12 @@ if __name__ == '__main__':
         gt_pure_filename = gt_filename.split('.')[0]
 
         fm_dir = os.path.join(frame_dir, gt_pure_filename)
+        print(fm_dir)
         fm_file_list = sorted(
-            os.listdir(fm_dir),
+            filter_out_garbage(os.listdir(fm_dir)),
             key=lambda x: int(x.split('.')[0].split('_')[-1])
         )
+
         fm_list = []
         for fm_filename in tqdm(fm_file_list):
             fm_filepath = os.path.join(fm_dir, fm_filename)

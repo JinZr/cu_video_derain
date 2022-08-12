@@ -165,7 +165,7 @@ if __name__ == '__main__':
 
     for fname in tqdm(file_list):
         video_name = os.path.join(input_dir, fname)
-
+        print(video_name)
         # adapt this to get better result
         frame_number = get_frame_num(video_name)
         # print(frame_number)

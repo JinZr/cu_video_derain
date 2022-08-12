@@ -39,8 +39,9 @@ if __name__ == '__main__':
             map(lambda x: os.path.join(video_path, x), frame_list))
         tmp = []
         for frame in tqdm(frame_list):
+            frame = str(frame)
             tmp.append({
-                'gt': frame,
+                'gt': frame.replace("motion_100_augmented", "motion_100"),
                 'rain': frame
             })
         res.append(tmp)

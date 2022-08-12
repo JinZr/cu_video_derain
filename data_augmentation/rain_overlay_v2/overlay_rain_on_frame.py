@@ -44,11 +44,11 @@ def screen(imgs_in, imgs_layer, opacity):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--frame_dir', type=str,  # required=True,
-                    default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_regular_clip_frame')
+                    default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_100')
 parser.add_argument('--streak_dir', type=str,  # required=True,
                     default='/home/desc/projects/derain/cu_rain_video_dataset/train/rain_streak_filtered')
 parser.add_argument('--output_dir', type=str,  # required=True,
-                    default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_regular_augmented_v2')
+                    default='/home/desc/projects/derain/cu_rain_video_dataset/train/motion_100_augmented')
 args = parser.parse_args()
 
 frame_dir = args.frame_dir
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     for vid_dir in tqdm(frame_dir_list):
 
         K = 1  # random.randint(a=3, b=5)
-        alphas = [random.uniform(a=0.5, b=0.9) for _ in range(K)]
+        alphas = [random.uniform(a=0.8, b=1.1) for _ in range(K)]
         rotation_angle = random.randint(a=-15, b=15)
 
         vid_path = os.path.join(frame_dir, vid_dir)

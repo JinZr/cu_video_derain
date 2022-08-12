@@ -14,6 +14,7 @@ frame_dir = args.frame_dir
 
 
 def vid_to_img(vid_path: str, img_seq_path: str):
+    print(vid_path)
     vidcap = cv2.VideoCapture(vid_path)
     filename = os.path.split(vid_path)[-1].split('.')[0]
     success, image = vidcap.read()
