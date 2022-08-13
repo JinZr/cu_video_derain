@@ -96,7 +96,7 @@ if __name__ == '__main__':
     )
 
     print("== LABEL ==")
-    traverse_input_dir(
+    traverse_label_dir(
         root_dir=label_path,
         save_path=label_save_path
     )
