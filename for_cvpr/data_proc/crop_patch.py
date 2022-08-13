@@ -96,8 +96,8 @@ if __name__ == '__main__':
         save_path=label_save_path
     )
 
-    # print("== INPUT ==")
-    # traverse_input_dir(
-    #     root_dir=input_path,
-    #     save_path=input_save_path
-    # )
+    print("== INPUT ==")
+    traverse_input_dir(
+        root_dir=input_path,
+        save_path=input_save_path
+    )
