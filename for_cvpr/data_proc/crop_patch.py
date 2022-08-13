@@ -16,7 +16,7 @@ def crop_image(
     img_arr = np.array(img)
     h, w, c = np.shape(img_arr)
     assert (h, w, c) == (1080, 1920, 3), \
-        f"img {img_name} size does not fit (1080, 1920, 3)"
+        f"img {img_name}, size {h, w, c}, does not fit (1080, 1920, 3)"
     assert len(img_name.split('.')) == 1, \
         f"img_name should not contain postfix like .{img_name.split('.')[-1]}"
     for x in range(w):
