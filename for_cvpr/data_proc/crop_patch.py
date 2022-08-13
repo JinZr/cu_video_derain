@@ -89,14 +89,14 @@ if __name__ == '__main__':
     if not os.path.exists(label_save_path):
         os.makedirs(label_save_path)
 
-    print("== INPUT ==")
-    traverse_input_dir(
-        root_dir=input_path,
-        save_path=input_save_path
-    )
-
     print("== LABEL ==")
     traverse_label_dir(
         root_dir=label_path,
         save_path=label_save_path
+    )
+
+    print("== INPUT ==")
+    traverse_input_dir(
+        root_dir=input_path,
+        save_path=input_save_path
     )
