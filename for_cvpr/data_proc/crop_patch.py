@@ -15,7 +15,7 @@ def crop_image(
 ):
     img_arr = np.array(img)
     h, w, c = np.shape(img_arr)
-    assert (h, w, c) == (1080, 1920, 3), \
+    assert (h, w) == (1080, 1920), \
         f"img {img_name}, size {h, w, c}, does not fit (1080, 1920, 3)"
     assert len(img_name.split('.')) == 1, \
         f"img_name should not contain postfix like .{img_name.split('.')[-1]}"
@@ -38,7 +38,7 @@ def traverse_input_dir(root_dir: str, save_path: str):
         for img in img_list:
             img_name = img.split('.')[0]
             img_path = os.path.join(subdir_path, img)
-            img_file = Image.open(img_path)
+            img_file = Image.open(img_path).convert('RGB')
             img_save_path = os.path.join(save_path, subdir)
             if not os.path.exists(img_save_path):
                 os.makedirs(img_save_path)
@@ -54,7 +54,7 @@ def traverse_label_dir(root_dir: str, save_path: str):
     for img in tqdm(img_list):
         img_name = img.split('.')[0]
         img_path = os.path.join(root_dir, img)
-        img_file = Image.open(img_path)
+        img_file = Image.open(img_path).convert('RGB')
         img_save_path = os.path.join(save_path, img_name)
         if not os.path.exists(img_save_path):
             os.makedirs(img_save_path)
