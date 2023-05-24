@@ -55,6 +55,7 @@ if __name__ == '__main__':
 
     dirs = os.listdir(input_dir)
     for dir in dirs:
+        if dir == ".DS_Store": continue
         current_dir = os.path.join(input_dir, dir)
         img_seq_to_vid(
             input_dir=current_dir,
