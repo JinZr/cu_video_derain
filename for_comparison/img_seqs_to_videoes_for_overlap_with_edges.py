@@ -70,9 +70,9 @@ def img_seq_to_vid(input_dir: str, output_dir: str):
         (width, height)
     )
     with tqdm(total=len(files)) as pbar:
-        for img in img_arr:
+        for idx, img in enumerate(img_arr):
             pbar.update()
-            writer.write(img[:,:,::-1])
+            if idx >= 4 and idx <= 57: writer.write(img[:,:,::-1])
     writer.release()
 
 
